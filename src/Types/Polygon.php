@@ -36,11 +36,9 @@ class Polygon extends MultiLineString
     }
 
     /**
-     * Convert to GeoJson Polygon that is jsonable to GeoJSON.
-     *
-     * @return \GeoJson\Geometry\Polygon
+     * Convert to GeoJson Polygon that is json-able to GeoJSON.
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): GeoJsonPolygon
     {
         $linearRings = [];
         foreach ($this->items as $lineString) {

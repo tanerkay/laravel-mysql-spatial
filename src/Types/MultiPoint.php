@@ -65,11 +65,9 @@ class MultiPoint extends PointCollection
     }
 
     /**
-     * Convert to GeoJson MultiPoint that is jsonable to GeoJSON.
-     *
-     * @return \GeoJson\Geometry\MultiPoint
+     * Convert to GeoJson MultiPoint that is json-able to GeoJSON.
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): GeoJsonMultiPoint
     {
         $points = [];
         foreach ($this->items as $point) {

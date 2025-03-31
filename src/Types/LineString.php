@@ -61,11 +61,9 @@ class LineString extends PointCollection
     }
 
     /**
-     * Convert to GeoJson LineString that is jsonable to GeoJSON.
-     *
-     * @return \GeoJson\Geometry\LineString
+     * Convert to GeoJson LineString that is json-able to GeoJSON.
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): GeoJsonLineString
     {
         $points = [];
         foreach ($this->items as $point) {

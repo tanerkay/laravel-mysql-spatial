@@ -79,11 +79,9 @@ class MultiLineString extends GeometryCollection
     }
 
     /**
-     * Convert to GeoJson Point that is jsonable to GeoJSON.
-     *
-     * @return \GeoJson\Geometry\MultiLineString
+     * Convert to GeoJson Point that is json-able to GeoJSON.
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         $lineStrings = [];
 

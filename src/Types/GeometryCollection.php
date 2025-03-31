@@ -7,6 +7,7 @@ use ArrayIterator;
 use Countable;
 use GeoJson\Feature\FeatureCollection;
 use GeoJson\GeoJson;
+use GeoJson\Geometry\GeometryCollection as GeoJsonGeometryCollection;
 use Grimzy\LaravelMysqlSpatial\Exceptions\InvalidGeoJsonException;
 use Illuminate\Contracts\Support\Arrayable;
 use InvalidArgumentException;
@@ -142,18 +143,16 @@ class GeometryCollection extends Geometry implements IteratorAggregate, ArrayAcc
     }
 
     /**
-     * Convert to GeoJson GeometryCollection that is jsonable to GeoJSON.
-     *
-     * @return \GeoJson\Geometry\GeometryCollection
+     * Convert to GeoJson GeometryCollection that is json-able to GeoJSON.
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         $geometries = [];
         foreach ($this->items as $geometry) {
             $geometries[] = $geometry->jsonSerialize();
         }
 
-        return new \GeoJson\Geometry\GeometryCollection($geometries);
+        return new GeoJsonGeometryCollection($geometries);
     }
 
     /**

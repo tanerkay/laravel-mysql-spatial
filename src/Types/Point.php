@@ -88,11 +88,9 @@ class Point extends Geometry
     }
 
     /**
-     * Convert to GeoJson Point that is jsonable to GeoJSON.
-     *
-     * @return \GeoJson\Geometry\Point
+     * Convert to GeoJson Point that is json-able to GeoJSON.
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): GeoJsonPoint
     {
         return new GeoJsonPoint([$this->getLng(), $this->getLat()]);
     }

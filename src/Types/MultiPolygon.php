@@ -123,11 +123,9 @@ class MultiPolygon extends GeometryCollection
     }
 
     /**
-     * Convert to GeoJson MultiPolygon that is jsonable to GeoJSON.
-     *
-     * @return \GeoJson\Geometry\MultiPolygon
+     * Convert to GeoJson MultiPolygon that is json-able to GeoJSON.
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): GeoJsonMultiPolygon
     {
         $polygons = [];
         foreach ($this->items as $polygon) {
