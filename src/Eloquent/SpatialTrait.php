@@ -40,9 +40,12 @@ trait SpatialTrait
      * protected $spatialFields = [];
      */
 
-    public $geometries = [];
+    /**
+     * @var GeometryInterface[]
+     */
+    public array $geometries = [];
 
-    protected $stRelations = [
+    protected array $stRelations = [
         'within',
         'crosses',
         'contains',
@@ -53,7 +56,7 @@ trait SpatialTrait
         'touches',
     ];
 
-    protected $stOrderFunctions = [
+    protected array $stOrderFunctions = [
         'distance',
         'distance_sphere',
     ];
@@ -62,15 +65,13 @@ trait SpatialTrait
      * Create a new Eloquent query builder for the model.
      *
      * @param \Illuminate\Database\Query\Builder $query
-     *
-     * @return \Grimzy\LaravelMysqlSpatial\Eloquent\Builder
      */
-    public function newEloquentBuilder($query)
+    public function newEloquentBuilder($query): Builder
     {
         return new Builder($query);
     }
 
-    protected function newBaseQueryBuilder()
+    protected function newBaseQueryBuilder(): BaseBuilder
     {
         $connection = $this->getConnection();
 
@@ -81,7 +82,7 @@ trait SpatialTrait
         );
     }
 
-    protected function performInsert(EloquentBuilder $query, array $options = [])
+    protected function performInsert(EloquentBuilder $query, array $options = []): bool
     {
         foreach ($this->attributes as $key => $value) {
             if ($value instanceof GeometryInterface) {
@@ -121,7 +122,7 @@ trait SpatialTrait
         }
     }
 
-    public function isColumnAllowed($geometryColumn)
+    public function isColumnAllowed($geometryColumn): true
     {
         if (!in_array($geometryColumn, $this->getSpatialFields())) {
             throw new SpatialFieldsNotDefinedException();

@@ -5,6 +5,7 @@ namespace Grimzy\LaravelMysqlSpatial;
 use Doctrine\DBAL\Types\Type as DoctrineType;
 use Grimzy\LaravelMysqlSpatial\Schema\Builder;
 use Grimzy\LaravelMysqlSpatial\Schema\Grammars\MySqlGrammar;
+use Illuminate\Database\Grammar;
 use Illuminate\Database\MySqlConnection as IlluminateMySqlConnection;
 
 class MysqlConnection extends IlluminateMySqlConnection
@@ -35,20 +36,16 @@ class MysqlConnection extends IlluminateMySqlConnection
 
     /**
      * Get the default schema grammar instance.
-     *
-     * @return \Illuminate\Database\Grammar
      */
-    protected function getDefaultSchemaGrammar()
+    protected function getDefaultSchemaGrammar(): Grammar
     {
         return $this->withTablePrefix(new MySqlGrammar());
     }
 
     /**
      * Get a schema builder instance for the connection.
-     *
-     * @return \Illuminate\Database\Schema\MySqlBuilder
      */
-    public function getSchemaBuilder()
+    public function getSchemaBuilder(): Builder
     {
         if (is_null($this->schemaGrammar)) {
             $this->useDefaultSchemaGrammar();

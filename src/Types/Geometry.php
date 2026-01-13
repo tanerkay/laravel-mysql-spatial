@@ -87,14 +87,14 @@ abstract class Geometry implements GeometryInterface, Jsonable, \JsonSerializabl
         return $parsed;
     }
 
-    public static function fromWKT($wkt, $srid = null)
+    public static function fromWKT($wkt, $srid = null): static
     {
         $wktArgument = static::getWKTArgument($wkt);
 
         return static::fromString($wktArgument, $srid);
     }
 
-    public static function fromJson($geoJson)
+    public static function fromJson($geoJson): self
     {
         if (is_string($geoJson)) {
             $geoJson = GeoJson::jsonUnserialize(json_decode($geoJson));
@@ -113,7 +113,7 @@ abstract class Geometry implements GeometryInterface, Jsonable, \JsonSerializabl
         return $type::fromJson($geoJson);
     }
 
-    public function toJson($options = 0)
+    public function toJson($options = 0): string|false
     {
         return json_encode($this, $options);
     }

@@ -5,29 +5,28 @@ namespace Grimzy\LaravelMysqlSpatial\Types;
 use GeoJson\GeoJson;
 use GeoJson\Geometry\MultiPoint as GeoJsonMultiPoint;
 use Grimzy\LaravelMysqlSpatial\Exceptions\InvalidGeoJsonException;
+use ReturnTypeWillChange;
 
 class MultiPoint extends PointCollection
 {
     /**
      * The minimum number of items required to create this collection.
-     *
-     * @var int
      */
-    protected $minimumCollectionItems = 1;
+    protected int $minimumCollectionItems = 1;
 
-    public function toWKT()
+    public function toWKT(): string
     {
         return sprintf('MULTIPOINT(%s)', (string) $this);
     }
 
-    public static function fromWkt($wkt, $srid = 0)
+    public static function fromWkt($wkt, $srid = 0): static
     {
         $wktArgument = Geometry::getWKTArgument($wkt);
 
         return static::fromString($wktArgument, $srid);
     }
 
-    public static function fromString($wktArgument, $srid = 0)
+    public static function fromString($wktArgument, $srid = 0): static
     {
         $matches = [];
         preg_match_all('/\(\s*(\d+\s+\d+)\s*\)/', trim($wktArgument), $matches);
@@ -46,7 +45,7 @@ class MultiPoint extends PointCollection
         }, $this->items));
     }
 
-    public static function fromJson($geoJson)
+    public static function fromJson($geoJson): self
     {
         if (is_string($geoJson)) {
             $geoJson = GeoJson::jsonUnserialize(json_decode($geoJson));
@@ -67,6 +66,7 @@ class MultiPoint extends PointCollection
     /**
      * Convert to GeoJson MultiPoint that is json-able to GeoJSON.
      */
+    #[ReturnTypeWillChange]
     public function jsonSerialize(): GeoJsonMultiPoint
     {
         $points = [];

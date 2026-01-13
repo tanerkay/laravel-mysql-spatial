@@ -3,6 +3,7 @@
 namespace Grimzy\LaravelMysqlSpatial\Schema;
 
 use Illuminate\Database\Schema\Blueprint as IlluminateBlueprint;
+use Illuminate\Support\Fluent;
 
 class Blueprint extends IlluminateBlueprint
 {
@@ -11,10 +12,8 @@ class Blueprint extends IlluminateBlueprint
      *
      * @param string   $column
      * @param null|int $srid
-     *
-     * @return \Illuminate\Support\Fluent
      */
-    public function geometry($column, $srid = null)
+    public function geometry($column, $srid = null): Fluent
     {
         return $this->addColumn('geometry', $column, compact('srid'));
     }
@@ -24,10 +23,8 @@ class Blueprint extends IlluminateBlueprint
      *
      * @param string   $column
      * @param null|int $srid
-     *
-     * @return \Illuminate\Support\Fluent
      */
-    public function point($column, $srid = null)
+    public function point($column, $srid = null): Fluent
     {
         return $this->addColumn('point', $column, compact('srid'));
     }
@@ -37,10 +34,8 @@ class Blueprint extends IlluminateBlueprint
      *
      * @param string   $column
      * @param null|int $srid
-     *
-     * @return \Illuminate\Support\Fluent
      */
-    public function lineString($column, $srid = null)
+    public function lineString($column, $srid = null): Fluent
     {
         return $this->addColumn('linestring', $column, compact('srid'));
     }
@@ -50,10 +45,8 @@ class Blueprint extends IlluminateBlueprint
      *
      * @param string   $column
      * @param null|int $srid
-     *
-     * @return \Illuminate\Support\Fluent
      */
-    public function polygon($column, $srid = null)
+    public function polygon($column, $srid = null): Fluent
     {
         return $this->addColumn('polygon', $column, compact('srid'));
     }
@@ -63,10 +56,8 @@ class Blueprint extends IlluminateBlueprint
      *
      * @param string   $column
      * @param null|int $srid
-     *
-     * @return \Illuminate\Support\Fluent
      */
-    public function multiPoint($column, $srid = null)
+    public function multiPoint($column, $srid = null): Fluent
     {
         return $this->addColumn('multipoint', $column, compact('srid'));
     }
@@ -76,10 +67,8 @@ class Blueprint extends IlluminateBlueprint
      *
      * @param string   $column
      * @param null|int $srid
-     *
-     * @return \Illuminate\Support\Fluent
      */
-    public function multiLineString($column, $srid = null)
+    public function multiLineString($column, $srid = null): Fluent
     {
         return $this->addColumn('multilinestring', $column, compact('srid'));
     }
@@ -89,10 +78,8 @@ class Blueprint extends IlluminateBlueprint
      *
      * @param string   $column
      * @param null|int $srid
-     *
-     * @return \Illuminate\Support\Fluent
      */
-    public function multiPolygon($column, $srid = null)
+    public function multiPolygon($column, $srid = null): Fluent
     {
         return $this->addColumn('multipolygon', $column, compact('srid'));
     }
@@ -102,10 +89,8 @@ class Blueprint extends IlluminateBlueprint
      *
      * @param string   $column
      * @param null|int $srid
-     *
-     * @return \Illuminate\Support\Fluent
      */
-    public function geometryCollection($column, $srid = null)
+    public function geometryCollection($column, $srid = null): Fluent
     {
         return $this->addColumn('geometrycollection', $column, compact('srid'));
     }
@@ -115,10 +100,8 @@ class Blueprint extends IlluminateBlueprint
      *
      * @param string|array $columns
      * @param string       $name
-     *
-     * @return \Illuminate\Support\Fluent
      */
-    public function spatialIndex($columns, $name = null)
+    public function spatialIndex($columns, $name = null): Fluent
     {
         return $this->indexCommand('spatial', $columns, $name);
     }
@@ -127,10 +110,8 @@ class Blueprint extends IlluminateBlueprint
      * Indicate that the given index should be dropped.
      *
      * @param string|array $index
-     *
-     * @return \Illuminate\Support\Fluent
      */
-    public function dropSpatialIndex($index)
+    public function dropSpatialIndex($index): Fluent
     {
         return $this->dropIndexCommand('dropIndex', 'spatial', $index);
     }

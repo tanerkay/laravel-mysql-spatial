@@ -10,29 +10,30 @@ class MultiLineString extends GeometryCollection
 {
     /**
      * The minimum number of items required to create this collection.
-     *
-     * @var int
      */
-    protected $minimumCollectionItems = 1;
+    protected int $minimumCollectionItems = 1;
 
     /**
      * The class of the items in the collection.
      *
-     * @var string
+     * @var class-string
      */
-    protected $collectionItemType = LineString::class;
+    protected string $collectionItemType = LineString::class;
 
-    public function getLineStrings()
+    /**
+     * @return LineString[]
+     */
+    public function getLineStrings(): array
     {
         return $this->items;
     }
 
-    public function toWKT()
+    public function toWKT(): string
     {
         return sprintf('MULTILINESTRING(%s)', (string) $this);
     }
 
-    public static function fromString($wktArgument, $srid = 0)
+    public static function fromString($wktArgument, $srid = 0): static
     {
         $str = preg_split('/\)\s*,\s*\(/', substr(trim($wktArgument), 1, -1));
         $lineStrings = array_map(function ($data) {
@@ -49,14 +50,14 @@ class MultiLineString extends GeometryCollection
         }, $this->getLineStrings()));
     }
 
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         $this->validateItemType($value);
 
         parent::offsetSet($offset, $value);
     }
 
-    public static function fromJson($geoJson)
+    public static function fromJson($geoJson): self
     {
         if (is_string($geoJson)) {
             $geoJson = GeoJson::jsonUnserialize(json_decode($geoJson));

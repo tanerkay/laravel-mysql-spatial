@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
 class Builder extends EloquentBuilder
 {
-    public function update(array $values)
+    public function update(array $values): int
     {
-        foreach ($values as $key => &$value) {
+        foreach ($values as &$value) {
             if ($value instanceof GeometryInterface) {
                 $value = $this->asWKT($value);
             }
@@ -18,7 +18,7 @@ class Builder extends EloquentBuilder
         return parent::update($values);
     }
 
-    protected function asWKT(GeometryInterface $geometry)
+    protected function asWKT(GeometryInterface $geometry): SpatialExpression
     {
         return new SpatialExpression($geometry);
     }

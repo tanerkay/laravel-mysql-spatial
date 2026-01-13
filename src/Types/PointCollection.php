@@ -10,18 +10,18 @@ abstract class PointCollection extends GeometryCollection
     /**
      * The class of the items in the collection.
      *
-     * @var string
+     * @var class-string
      */
-    protected $collectionItemType = Point::class;
+    protected string $collectionItemType = Point::class;
 
-    public function toPairList()
+    public function toPairList(): string
     {
         return implode(',', array_map(function (Point $point) {
             return $point->toPair();
         }, $this->items));
     }
 
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         $this->validateItemType($value);
 
@@ -29,16 +29,14 @@ abstract class PointCollection extends GeometryCollection
     }
 
     /**
-     * @return array|\Grimzy\LaravelMysqlSpatial\Types\Point[]
+     * @return Point[]
      */
-    public function getPoints()
+    public function getPoints(): array
     {
         return $this->items;
     }
 
     /**
-     * @param \Grimzy\LaravelMysqlSpatial\Types\Point $point
-     *
      * @deprecated 2.1.0 Use array_unshift($multipoint, $point); instead
      * @see array_unshift
      * @see ArrayAccess
@@ -49,8 +47,6 @@ abstract class PointCollection extends GeometryCollection
     }
 
     /**
-     * @param \Grimzy\LaravelMysqlSpatial\Types\Point $point
-     *
      * @deprecated 2.1.0 Use $multipoint[] = $point; instead
      * @see ArrayAccess
      */
@@ -60,9 +56,6 @@ abstract class PointCollection extends GeometryCollection
     }
 
     /**
-     * @param $index
-     * @param \Grimzy\LaravelMysqlSpatial\Types\Point $point
-     *
      * @deprecated 2.1.0 Use array_splice($multipoint, $index, 0, [$point]); instead
      * @see array_splice
      * @see ArrayAccess
