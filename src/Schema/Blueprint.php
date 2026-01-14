@@ -8,17 +8,6 @@ use Illuminate\Support\Fluent;
 class Blueprint extends IlluminateBlueprint
 {
     /**
-     * Add a geometry column on the table.
-     *
-     * @param string   $column
-     * @param null|int $srid
-     */
-    public function geometry($column, $srid = null): Fluent
-    {
-        return $this->addColumn('geometry', $column, compact('srid'));
-    }
-
-    /**
      * Add a point column on the table.
      *
      * @param string   $column
@@ -93,26 +82,5 @@ class Blueprint extends IlluminateBlueprint
     public function geometryCollection($column, $srid = null): Fluent
     {
         return $this->addColumn('geometrycollection', $column, compact('srid'));
-    }
-
-    /**
-     * Specify a spatial index for the table.
-     *
-     * @param string|array $columns
-     * @param string       $name
-     */
-    public function spatialIndex($columns, $name = null): Fluent
-    {
-        return $this->indexCommand('spatial', $columns, $name);
-    }
-
-    /**
-     * Indicate that the given index should be dropped.
-     *
-     * @param string|array $index
-     */
-    public function dropSpatialIndex($index): Fluent
-    {
-        return $this->dropIndexCommand('dropIndex', 'spatial', $index);
     }
 }

@@ -9,12 +9,9 @@ use Mockery;
 
 class BlueprintTest extends BaseTestCase
 {
-    /**
-     * @var \Grimzy\LaravelMysqlSpatial\Schema\Blueprint
-     */
-    protected $blueprint;
+    protected Blueprint $blueprint;
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -27,12 +24,13 @@ class BlueprintTest extends BaseTestCase
         $expectedCol = new ColumnDefinition([
             'type' => 'geometry',
             'name' => 'col',
+            'subtype' => null,
             'srid' => null,
         ]);
 
         $this->blueprint
             ->shouldReceive('addColumn')
-            ->with('geometry', 'col', ['srid' => null])
+            ->with('geometry', 'col', ['subtype' => null, 'srid' => null])
             ->once()
             ->andReturn($expectedCol);
 
@@ -179,16 +177,17 @@ class BlueprintTest extends BaseTestCase
         $expectedCol = new ColumnDefinition([
             'type' => 'geometry',
             'name' => 'col',
+            'subtype' => null,
             'srid' => 4326,
         ]);
 
         $this->blueprint
             ->shouldReceive('addColumn')
-            ->with('geometry', 'col', ['srid' => 4326])
+            ->with('geometry', 'col', ['subtype' => null, 'srid' => 4326])
             ->once()
             ->andReturn($expectedCol);
 
-        $result = $this->blueprint->geometry('col', 4326);
+        $result = $this->blueprint->geometry('col', null, 4326);
 
         $this->assertSame($expectedCol, $result);
     }

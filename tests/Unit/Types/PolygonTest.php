@@ -6,9 +6,9 @@ use Grimzy\LaravelMysqlSpatial\Types\Polygon;
 
 class PolygonTest extends BaseTestCase
 {
-    private $polygon;
+    private Polygon $polygon;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $collection = new LineString(
             [

@@ -7,9 +7,9 @@ use Stubs\PDOStub;
 
 class MysqlConnectionTest extends TestCase
 {
-    private $mysqlConnection;
+    private MysqlConnection $mysqlConnection;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $mysqlConfig = ['driver' => 'mysql', 'prefix' => 'prefix', 'database' => 'database', 'name' => 'foo'];
         $this->mysqlConnection = new MysqlConnection(new PDOStub(), 'database', 'prefix', $mysqlConfig);
