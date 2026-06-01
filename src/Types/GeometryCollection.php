@@ -41,7 +41,7 @@ class GeometryCollection extends Geometry implements IteratorAggregate, ArrayAcc
      *
      * @throws InvalidArgumentException
      */
-    public function __construct(array $geometries, int $srid = 0)
+    public function __construct(array $geometries, $srid = 0)
     {
         parent::__construct($srid);
 
